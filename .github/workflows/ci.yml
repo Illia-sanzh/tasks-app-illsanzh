@@ -1,6 +1,5 @@
 name: Check code
 on: [push]
-permissions: read
 jobs:
   Check-out-code:
     runs-on: ubuntu-latest
