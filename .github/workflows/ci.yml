@@ -19,7 +19,7 @@ jobs:
     - name: Archive the service test
       uses: actions/upload-artifact@v7
       with:
-        name: services-test-report
+        name: ${{matrix.path}}-${{ matrix.python-ver }}-test-report
         path: ${{ matrix.path }}-test.txt
 
 
