@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        path: [services/tasks-api, services/title-normalizer]
+        path: [tasks-api, title-normalizer]
         python-ver: [3.12, 3.11, 3.8]
     steps:
     - name: Install dependencies
@@ -13,8 +13,14 @@ jobs:
     - uses: actions/setup-python@v7
       with:
         python-version: ${{ matrix.python-ver }}
-    - run:  python -m pip install -r ${{ matrix.path }}/requirements.txt
+    - run:  python -m pip install -r services/${{ matrix.path }}/requirements.txt
     - name: Run pytest
-      run:  pytest ${{ matrix.path }}
+      run:  pytest ${{ matrix.path }} | tee ${{ matrix.path }}-test.txt
+    - name: Archive the service test
+      uses: actions/upload-artifact@v7
+      with:
+        name: services-test-report
+        path: ${{ matrix.path }}-test.txt
+
 
 
