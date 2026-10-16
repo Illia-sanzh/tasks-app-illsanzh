@@ -6,11 +6,11 @@ jobs:
     strategy:
       matrix: 
         path: [services/tasks-api, services/title-normalizer]
-      steps:
-      - name: Install dependencies
-        uses: actions/checkout@v6
-      - run:  python -m pip install -r ${{ matrix.path }}/requirements.txt
-      - name: Run pytest
-        run:  pytest ${{ matrix.path }}
+    steps:
+    - name: Install dependencies
+      uses: actions/checkout@v6
+    - run:  python -m pip install -r ${{ matrix.path }}/requirements.txt
+    - name: Run pytest
+      run:  pytest ${{ matrix.path }}
 
 
