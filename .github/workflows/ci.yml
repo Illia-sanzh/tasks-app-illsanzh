@@ -1,0 +1,12 @@
+name: Check code
+on: [push]
+permissions: [read]
+jobs:
+  Check-out-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        uses: actions/checkout@v6
+      - run:  cd services/tasks-api && python -m pip install -r requirements.txt
+      - name: Run pytest
+        run:  cd ../.. && pytest
