@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix: 
         path: [tasks-api, title-normalizer]
-        python-ver: [3.12, 3.11, 3.8]
+        python-ver: [3.12, 3.11]
     steps:
     - name: Install dependencies
       uses: actions/checkout@v6
