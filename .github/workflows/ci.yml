@@ -27,7 +27,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v6
     - name: Start services
-      run: docker compose -f services/compose.yaml up --build --detach
+      run: docker compose -f services/compose.yaml up --build --detach --wait --wait-timeout 90
     - name: Wait for services
       run: |
         curl --fail --silent --show-error --retry 30 --retry-connrefused --retry-delay 2 http://localhost:5001/health >/dev/null
@@ -44,6 +44,5 @@ jobs:
     - name: Stop services
       if: always()
       run: docker compose -f services/compose.yaml down
-
 
 
