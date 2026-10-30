@@ -1,0 +1,29 @@
+services:
+  tasks-api:
+    container_name: tasks-api
+    build: ./tasks-api
+    ports:
+      - "5000:5000"
+    networks:
+      - tasks-net
+    depends_on:
+      - title-normalizer
+    environment:
+      - NORMALIZER_URL=http://title-normalizer:5001
+  title-normalizer:
+    container_name: title-normalizer
+    build: ./title-normalizer
+    ports:
+    - "5001:5001"
+    networks:
+      - tasks-net
+    healthcheck:
+      test: ["CMD", "curl localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+networks:
+  tasks-net:
+    name: tasks-net
+    driver: bridge
